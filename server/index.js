@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 });
 
 // ─── Database & Server Startup ────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5005;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vitto_lending';
 
 mongoose
