@@ -51,31 +51,31 @@ export default function LoanForm({ onSubmit, isLoading }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="block text-sm">Name</label>
-        <input id="name" value={form.name} onChange={handleChange} className="w-full border p-2 rounded text-black" />
-        {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+        <label className="block text-sm font-medium mb-1">Name</label>
+        <input id="name" value={form.name} onChange={handleChange} className="form-input" />
+        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
       </div>
       <div>
-        <label className="block text-sm">PAN</label>
-        <input id="pan" value={form.pan} onChange={handleChange} className="w-full border p-2 rounded text-black" maxLength={10} />
-        {errors.pan && <p className="text-red-500 text-xs">{errors.pan}</p>}
+        <label className="block text-sm font-medium mb-1">PAN</label>
+        <input id="pan" value={form.pan} onChange={handleChange} className="form-input" maxLength={10} />
+        {errors.pan && <p className="text-red-500 text-xs mt-1">{errors.pan}</p>}
       </div>
       <div>
-        <label className="block text-sm">Monthly Revenue (₹)</label>
-        <input id="monthlyRevenue" type="number" value={form.monthlyRevenue} onChange={handleChange} className="w-full border p-2 rounded text-black" />
-        {errors.monthlyRevenue && <p className="text-red-500 text-xs">{errors.monthlyRevenue}</p>}
+        <label className="block text-sm font-medium mb-1">Monthly Revenue (₹)</label>
+        <input id="monthlyRevenue" type="number" value={form.monthlyRevenue} onChange={handleChange} className="form-input" />
+        {errors.monthlyRevenue && <p className="text-red-500 text-xs mt-1">{errors.monthlyRevenue}</p>}
       </div>
       <div>
-        <label className="block text-sm">Loan Amount (₹)</label>
-        <input id="loanAmount" type="number" value={form.loanAmount} onChange={handleChange} className="w-full border p-2 rounded text-black" />
-        {errors.loanAmount && <p className="text-red-500 text-xs">{errors.loanAmount}</p>}
+        <label className="block text-sm font-medium mb-1">Loan Amount (₹)</label>
+        <input id="loanAmount" type="number" value={form.loanAmount} onChange={handleChange} className="form-input" />
+        {errors.loanAmount && <p className="text-red-500 text-xs mt-1">{errors.loanAmount}</p>}
       </div>
       <div>
-        <label className="block text-sm">Tenure (months)</label>
-        <input id="tenure" type="number" value={form.tenure} onChange={handleChange} className="w-full border p-2 rounded text-black" />
-        {errors.tenure && <p className="text-red-500 text-xs">{errors.tenure}</p>}
+        <label className="block text-sm font-medium mb-1">Tenure (months)</label>
+        <input id="tenure" type="number" value={form.tenure} onChange={handleChange} className="form-input" />
+        {errors.tenure && <p className="text-red-500 text-xs mt-1">{errors.tenure}</p>}
       </div>
-      <button type="submit" disabled={isLoading} className="w-full bg-blue-600 text-white p-2 rounded mt-4">
+      <button type="submit" disabled={isLoading} className="btn-primary mt-4">
         {isLoading ? 'Processing...' : 'Submit Application'}
       </button>
     </form>
