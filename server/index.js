@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 
 const applicationRoutes = require('./routes/application');
 
@@ -14,6 +18,25 @@ app.use(cors({
   allowedHeaders: ['Content-Type'],
 }));
 app.use(express.json());
+
+// ─── Bonus: Logging & Audit Trail ──────────────────────────────────────────────
+// Create a write stream (in append mode) for audit logs
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'audit.log'), { flags: 'a' });
+// Log all requests to console and to the audit.log file
+app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('dev')); // Console colorized logging
+
+// ─── Bonus: Rate Limiting ──────────────────────────────────────────────────────
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes window
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: { success: false, message: 'Too many requests from this IP, please try again after 15 minutes' },
+  standardHeaders: true, 
+  legacyHeaders: false, 
+});
+
+// Apply rate limiter specifically to the submission endpoint
+app.use('/api/application', apiLimiter);
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/application', applicationRoutes);

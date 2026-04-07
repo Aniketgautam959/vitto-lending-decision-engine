@@ -87,6 +87,17 @@ Submits a new loan application to the decision engine.
 
 ---
 
+## 🌟 Implemented Bonus Features
+
+This application implements several recommended bonus features to ensure a hardened, enterprise-grade mock environment:
+
+- **📦 Full Docker Support:** The application is completely containerized. You can run the entire stack (Database, Node backend, and Vite frontend) via Docker Compose using: `docker-compose up --build`. No local npm installs needed!
+- **🛑 Rate Limiting:** The backend is protected by `express-rate-limit`, permitting a maximum of 100 requests per IP per 15 minutes to prevent network spam and basic DDOS attacks.
+- **📝 Audit Trails & Logging:** All incoming requests are actively logged to the standard console and seamlessly appended strictly into an enclosed `server/audit.log` file using `morgan`.
+- **🛡️ API Validation & Error Handling:** The backend strictly sanitizes `PAN` formatting, verifies strict `positive-number` rules, and gracefully catches edge-case server crashes, returning exact arrays of failure reasons.
+
+---
+
 ## ⚙️ Decision Logic Explanation
 
 The core risk assessment lives in `server/services/decisionEngine.js`. When valid data enters the engine, it starts the applicant with a perfect `100` credit score and validates them against two crucial thresholds:

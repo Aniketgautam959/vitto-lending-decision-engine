@@ -1,0 +1,29 @@
+services:
+  database:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - vitto_mongo_data:/data/db
+
+  server:
+    build: ./server
+    ports:
+      - "5005:5005"
+    environment:
+      - PORT=5005
+      - MONGODB_URI=mongodb://database:27017/vitto_lending
+    depends_on:
+      - database
+
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    environment:
+      - API_PROXY_URL=http://server:5005
+    depends_on:
+      - server
+
+volumes:
+  vitto_mongo_data:
