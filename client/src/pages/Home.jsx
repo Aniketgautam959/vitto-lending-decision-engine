@@ -87,8 +87,9 @@ export default function Home() {
                 <h1 className="text-4xl font-bold mb-3 leading-tight">
                   Apply for an <span className="gradient-text">MSME Loan</span>
                 </h1>
-                <p className="text-base max-w-lg mx-auto" style={{ color: 'var(--color-muted)' }}>
+                <p className="text-sm md:text-base max-w-lg mx-auto px-4 mt-2 leading-relaxed" style={{ color: 'var(--color-muted)' }}>
                   Get an instant credit decision powered by our intelligent risk engine.
+                  <br className="hidden sm:block" />
                   Fill in your details below to receive a real-time assessment.
                 </p>
               </div>
