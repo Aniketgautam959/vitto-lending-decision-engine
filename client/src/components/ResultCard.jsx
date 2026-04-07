@@ -53,7 +53,7 @@ export default function ResultCard({ result, onReset }) {
         {emi && (
           <p className="mt-2 text-sm" style={{ color: 'var(--color-muted)' }}>
             Estimated Monthly EMI:{' '}
-            <span className="font-semibold text-white">{formatINR(emi)}</span>
+            <span className="font-semibold" style={{ color: 'var(--color-text)' }}>{formatINR(emi)}</span>
           </p>
         )}
       </div>

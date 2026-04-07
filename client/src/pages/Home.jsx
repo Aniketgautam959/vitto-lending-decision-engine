@@ -46,12 +46,12 @@ export default function Home() {
         <header className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid var(--color-border)' }}>
           <div className="flex items-center gap-3">
             <div
-              className="w-9 h-9 border border-gray-700 bg-gray-800 rounded-lg flex items-center justify-center text-sm font-bold text-white"
+              className="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-sm font-bold text-white"
             >
               V
             </div>
             <div>
-              <span className="font-bold text-white text-lg tracking-tight">Vitto</span>
+              <span className="font-bold text-slate-900 text-lg tracking-tight">Vitto</span>
               <span className="font-light text-sm ml-1.5" style={{ color: 'var(--color-muted)' }}>Lending</span>
             </div>
           </div>
@@ -61,7 +61,7 @@ export default function Home() {
               style={{
                 background: 'rgba(16,185,129,0.1)',
                 border: '1px solid rgba(16,185,129,0.25)',
-                color: '#34d399',
+                color: '#059669',
               }}
             >
               ● MSME Credit Platform
@@ -79,7 +79,7 @@ export default function Home() {
                   style={{
                     background: 'rgba(99,102,241,0.1)',
                     border: '1px solid rgba(99,102,241,0.25)',
-                    color: '#818cf8',
+                    color: '#4338ca',
                   }}
                 >
                   Credit Decision Engine
@@ -112,7 +112,7 @@ export default function Home() {
                   style={{
                     background: 'rgba(239,68,68,0.08)',
                     border: '1px solid rgba(239,68,68,0.25)',
-                    color: '#fca5a5',
+                    color: '#b91c1c',
                   }}
                   role="alert"
                 >
