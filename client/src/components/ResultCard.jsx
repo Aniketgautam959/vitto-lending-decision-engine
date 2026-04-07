@@ -1,21 +1,9 @@
-/**
- * ResultCard.jsx — Displays the credit decision returned by the backend
- *
- * Props:
- *  - result: { decision, creditScore, reasonCodes, emi }
- *  - onReset: () => void
- */
-
 import { useEffect, useState } from 'react';
-
-// ─── Helper: score color ───────────────────────────────────────────────────────
-function getScoreColor(score) {
+function getColor(score) {
   if (score >= 80) return '#10b981';       // green
   if (score >= 60) return '#f59e0b';       // amber
   return '#ef4444';                         // red
 }
-
-// ─── Helper: format currency ───────────────────────────────────────────────────
 function formatINR(amount) {
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -23,41 +11,36 @@ function formatINR(amount) {
     maximumFractionDigits: 0,
   }).format(amount);
 }
-
 export default function ResultCard({ result, onReset }) {
   const { decision, creditScore, reasons, emi } = result;
   const isApproved = decision === 'Approved';
-  const scoreColor = getScoreColor(creditScore);
-
+  const clr = getColor(creditScore);
   // Animate score bar width after mount
-  const [barWidth, setBarWidth] = useState(0);
+  const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const t = setTimeout(() => setBarWidth(creditScore), 100);
+    const t = setTimeout(() => setProgress(creditScore), 100);
     return () => clearTimeout(t);
   }, [creditScore]);
-
   return (
     <div className="fade-in space-y-6">
-      {/* ── Decision Banner ─────────────────────────────────────────────── */}
+
       <div
         className="rounded-xl p-6 text-center"
         style={{
-          background: isApproved
-            ? 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(6,182,212,0.08))'
-            : 'linear-gradient(135deg, rgba(239,68,68,0.12), rgba(251,113,133,0.08))',
+          background: isApproved ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)',
           border: `1px solid ${isApproved ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`,
         }}
       >
         {/* Icon */}
         <div
-          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl"
+          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold"
           style={{
             background: isApproved ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)',
+            color: isApproved ? '#10b981' : '#ef4444',
           }}
         >
-          {isApproved ? '✅' : '❌'}
+          {isApproved ? 'A' : 'R'}
         </div>
-
         <p className="text-sm font-medium mb-1" style={{ color: 'var(--color-muted)' }}>
           Credit Decision
         </p>
@@ -75,7 +58,6 @@ export default function ResultCard({ result, onReset }) {
         )}
       </div>
 
-      {/* ── Credit Score ─────────────────────────────────────────────────── */}
       <div
         className="rounded-xl p-5"
         style={{
@@ -88,36 +70,33 @@ export default function ResultCard({ result, onReset }) {
             <p className="text-xs font-medium uppercase tracking-widest mb-0.5" style={{ color: 'var(--color-muted)' }}>
               Credit Score
             </p>
-            <p className="text-4xl font-bold" style={{ color: scoreColor }}>
+            <p className="text-4xl font-bold" style={{ color: clr }}>
               {creditScore}
               <span className="text-lg font-normal ml-1" style={{ color: 'var(--color-muted)' }}>/ 100</span>
             </p>
           </div>
-
           {/* Score label */}
           <span
             className="text-xs font-semibold px-3 py-1.5 rounded-full"
             style={{
-              background: `${scoreColor}18`,
-              border: `1px solid ${scoreColor}40`,
-              color: scoreColor,
+              background: `${clr}18`,
+              border: `1px solid ${clr}40`,
+              color: clr,
             }}
           >
             {creditScore >= 80 ? 'Excellent' : creditScore >= 60 ? 'Fair' : 'Poor'}
           </span>
         </div>
-
         {/* Progress bar */}
         <div className="score-bar-track">
           <div
             className="score-bar-fill"
             style={{
-              width: `${barWidth}%`,
-              background: `linear-gradient(90deg, ${scoreColor}88, ${scoreColor})`,
+              width: `${progress}%`,
+              background: clr,
             }}
           />
         </div>
-
         {/* Scale */}
         <div className="flex justify-between mt-1.5 text-xs" style={{ color: 'var(--color-muted)' }}>
           <span>0</span>
@@ -126,7 +105,6 @@ export default function ResultCard({ result, onReset }) {
         </div>
       </div>
 
-      {/* ── Reason Codes ─────────────────────────────────────────────────── */}
       <div
         className="rounded-xl p-5"
         style={{
@@ -143,8 +121,8 @@ export default function ResultCard({ result, onReset }) {
               key={i}
               className={isApproved && reasons.length === 1 ? 'badge-success' : 'badge-warning'}
             >
-              <span className="mt-0.5">
-                {isApproved && reasons.length === 1 ? '✓' : '⚠'}
+              <span className="mt-0.5 font-bold">
+                {isApproved && reasons.length === 1 ? '+' : '-'}
               </span>
               <span>{reason}</span>
             </div>
@@ -152,7 +130,6 @@ export default function ResultCard({ result, onReset }) {
         </div>
       </div>
 
-      {/* ── Apply Again Button ───────────────────────────────────────────── */}
       <button
         onClick={onReset}
         className="btn-primary"
